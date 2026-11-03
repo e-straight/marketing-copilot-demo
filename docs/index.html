@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Setup guide for the GitHub Copilot workshop.">
+    <title>Workshop setup | GitHub Copilot</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to setup</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand-lockup" role="img" aria-label="Microsoft">
+          <span class="microsoft-mark" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </span>
+          <span class="microsoft-wordmark">Microsoft</span>
+        </div>
+        <p class="workshop-label">GitHub Copilot workshop</p>
+        <h1>Workshop setup</h1>
+      </div>
+      <div class="color-ribbon" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <ol class="setup-flow" aria-label="Workshop setup steps">
+        <li class="setup-step" id="download">
+          <div class="step-number" aria-hidden="true">1</div>
+          <div class="step-content">
+            <h2>Download the GitHub Copilot app</h2>
+            <p>Open the official releases page and choose the installer for your computer.</p>
+            <div class="action-row">
+              <a class="button" href="https://github.com/github/app/releases">Open app downloads</a>
+            </div>
+            <div class="screen-callout">
+              <p class="screen-title">GitHub releases</p>
+              <ol class="click-path">
+                <li>Open the newest release.</li>
+                <li>Under <strong>Assets</strong>, choose macOS or Windows.</li>
+                <li>Run the downloaded installer, then open the app.</li>
+              </ol>
+            </div>
+          </div>
+        </li>
+
+        <li class="setup-step" id="sign-in">
+          <div class="step-number" aria-hidden="true">2</div>
+          <div class="step-content">
+            <h2>Sign in to GitHub</h2>
+            <p>Use the GitHub account approved for this workshop.</p>
+            <div class="screen-callout">
+              <p class="screen-title">GitHub Copilot app</p>
+              <ol class="click-path">
+                <li>Click <strong>Sign in to GitHub</strong>.</li>
+                <li>Complete the browser sign-in and authorization.</li>
+                <li>Return to the app when your account appears in the sidebar.</li>
+              </ol>
+            </div>
+          </div>
+        </li>
+
+        <li class="setup-step" id="add-project">
+          <div class="step-number" aria-hidden="true">3</div>
+          <div class="step-content">
+            <h2>Add the workshop project</h2>
+            <p>Add the workshop repository so your sessions have the right files and context.</p>
+            <div class="action-row">
+              <a class="button" href="https://github.com/e-straight/marketing-copilot-demo">Open workshop repository</a>
+            </div>
+            <div class="screen-callout">
+              <p class="screen-title">Projects</p>
+              <ol class="click-path">
+                <li>Click <strong>+</strong> beside <strong>Projects</strong>.</li>
+                <li>Choose <strong>Add GitHub repository</strong>.</li>
+                <li>Select <strong>e-straight/marketing-copilot-demo</strong>, then click <strong>Add</strong>.</li>
+              </ol>
+            </div>
+          </div>
+        </li>
+
+        <li class="setup-step" id="confirm-workiq">
+          <div class="step-number" aria-hidden="true">4</div>
+          <div class="step-content">
+            <h2>Confirm WorkIQ access</h2>
+            <p>Start a session in the workshop project and send this access check.</p>
+            <div class="prompt-block">
+              <p>Use WorkIQ to list the titles and start times of my next three calendar events.</p>
+            </div>
+            <div class="screen-callout">
+              <p class="screen-title">If WorkIQ asks you to connect</p>
+              <ol class="click-path">
+                <li>Click <strong>Sign in</strong> in the authorization prompt.</li>
+                <li>Use your Microsoft work account.</li>
+                <li>Return to the session and send the access check again.</li>
+              </ol>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <section class="readiness" id="ready" aria-labelledby="ready-title">
+        <div>
+          <p class="section-kicker">Readiness check</p>
+          <h2 id="ready-title">You are ready when all four are true.</h2>
+        </div>
+        <ul class="ready-list">
+          <li>The GitHub Copilot app opens.</li>
+          <li>Your GitHub account appears in the app.</li>
+          <li>The workshop project appears under Projects.</li>
+          <li>WorkIQ returns your calendar results.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>GitHub Copilot workshop</p>
+    </footer>
+  </body>
+</html>
