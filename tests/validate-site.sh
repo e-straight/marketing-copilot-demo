@@ -60,5 +60,11 @@ grep -q '@media (max-width: 760px)' "$stylesheet" ||
   fail "stylesheet is missing the mobile breakpoint"
 grep -q 'prefers-reduced-motion' "$stylesheet" ||
   fail "stylesheet is missing reduced-motion handling"
+grep -q 'font-size: clamp(2.4rem, 7vw, 4.75rem)' "$stylesheet" ||
+  fail "public hero typography has not been reduced"
+grep -q 'font-size: clamp(2.2rem, 5vw, 3.9rem)' "$stylesheet" ||
+  fail "speaker hero typography has not been reduced"
+grep -q 'font-size: clamp(1.7rem, 3.2vw, 2.25rem)' "$stylesheet" ||
+  fail "section heading typography has not been reduced"
 
 printf 'PASS: static site structure and content checks\n'
