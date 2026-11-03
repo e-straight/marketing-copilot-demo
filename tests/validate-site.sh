@@ -60,11 +60,27 @@ grep -q '@media (max-width: 760px)' "$stylesheet" ||
   fail "stylesheet is missing the mobile breakpoint"
 grep -q 'prefers-reduced-motion' "$stylesheet" ||
   fail "stylesheet is missing reduced-motion handling"
-grep -q 'font-size: clamp(2.4rem, 7vw, 4.75rem)' "$stylesheet" ||
-  fail "public hero typography has not been reduced"
-grep -q 'font-size: clamp(2.2rem, 5vw, 3.9rem)' "$stylesheet" ||
-  fail "speaker hero typography has not been reduced"
-grep -q 'font-size: clamp(1.7rem, 3.2vw, 2.25rem)' "$stylesheet" ||
-  fail "section heading typography has not been reduced"
+grep -q 'font-size: clamp(2.6rem, 8vw, 5.6rem)' "$stylesheet" ||
+  fail "public hero typography has not been restored"
+grep -q 'font-size: clamp(2.35rem, 6vw, 4.6rem)' "$stylesheet" ||
+  fail "speaker hero typography has not been restored"
+grep -q 'font-size: clamp(1.8rem, 4vw, 2.7rem)' "$stylesheet" ||
+  fail "section heading typography has not been restored"
+grep -q 'line-height: 1.5' "$stylesheet" ||
+  fail "body line height has not been tightened"
+grep -q 'padding: 1.75rem 0 3.25rem' "$stylesheet" ||
+  fail "header spacing has not been tightened"
+grep -q 'padding: 3rem 0' "$stylesheet" ||
+  fail "setup step spacing has not been tightened"
+grep -q 'min-height: 220px' "$stylesheet" ||
+  fail "callout height has not been tightened"
+grep -q 'margin: 3rem 0' "$stylesheet" ||
+  fail "readiness spacing has not been tightened"
+grep -q 'padding: 2rem 0 4rem' "$stylesheet" ||
+  fail "speaker shell spacing has not been tightened"
+grep -q 'padding: 1.75rem 0' "$stylesheet" ||
+  fail "speaker feature spacing has not been tightened"
+grep -q 'min-height: 48px' "$stylesheet" ||
+  fail "button touch targets have been reduced"
 
 printf 'PASS: static site structure and content checks\n'
