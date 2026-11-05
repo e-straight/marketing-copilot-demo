@@ -194,11 +194,19 @@
                 <p><strong>Skill:</strong> A reusable recipe of instructions, scripts, and resources for how Copilot should perform a task. Use one when you want consistent steps, such as your team's release-note process.</p>
                 <p><strong>MCP server:</strong> A live connection to an external tool or data source. Use one when Copilot needs current information or needs to take an allowed action, such as accessing permitted Microsoft 365 context through WorkIQ.</p>
               </div>
+              <div class="orientation-explainer">
+                <h4>Model selection</h4>
+                <p><strong>Start with Copilot Fusion when it is available.</strong> Fusion routes work and, when useful, orchestrates multiple enabled models so you do not need to choose one for every step.</p>
+                <p><strong>Choose the effort level for the task:</strong> Standard for everyday work, High for challenging work and deeper reasoning, and Max for the most demanding tasks.</p>
+                <p><strong>If the picker shows Auto instead, use Auto for general work.</strong> Its Efficiency, Balance, and Intelligence tiers prioritize cost, a middle ground, or quality.</p>
+                <p><strong>Choose a specific model</strong> when you need its particular behavior or your organization requires it.</p>
+                <p>Availability depends on the Copilot surface, plan, rollout, and organization model policies.</p>
+              </div>
               <h4>Handoff</h4>
               <p>“Let’s open one durable Project for the tracker.”</p>
               <h4>Fallback</h4>
               <p>If a surface is not available in a participant build, describe its role and continue from a regular session.</p>
-              <p class="source-note">Terminology references: <a href="https://docs.github.com/en/copilot/get-started/quickstart-copilot-app">GitHub Copilot app quickstart</a>, <a href="https://docs.github.com/en/copilot/concepts/customizations/plugins">plugins</a>, and <a href="https://docs.github.com/en/copilot/concepts/customizations/agent-skills">agent skills</a>.</p>
+              <p class="source-note">Terminology references: <a href="https://docs.github.com/en/copilot/get-started/quickstart-copilot-app">GitHub Copilot app quickstart</a>, <a href="https://docs.github.com/en/copilot/concepts/customizations/plugins">plugins</a>, <a href="https://docs.github.com/en/copilot/concepts/customizations/agent-skills">agent skills</a>, <a href="https://docs.github.com/en/copilot/concepts/models/copilot-fusion">Copilot Fusion</a>, and <a href="https://docs.github.com/en/copilot/concepts/models/auto-model-selection">Auto model selection</a>.</p>
             </div>
           </li>
 
@@ -312,13 +320,13 @@
       <section class="tab-panel compare-panel" id="compare-apps">
         <div class="panel-heading">
           <p class="section-kicker">Quick guide</p>
-          <h2>Which app should I use?</h2>
-          <p>Start with where the work is and what you need to do next.</p>
+          <h2>Which Copilot experience should I use?</h2>
+          <p>Choose based on where the work lives, how you prefer to work, and the outcome you need.</p>
         </div>
 
         <div class="comparison-grid">
           <article class="comparison-card github-card">
-            <h3>Use GitHub Copilot when...</h3>
+            <h3>Use GitHub Copilot app when...</h3>
             <ul>
               <li>You want to keep a project, source files, sessions, and automation together.</li>
               <li>You want separate sessions or agents to handle different parts of the work.</li>
@@ -329,11 +337,23 @@
             <a class="button" href="https://docs.github.com/en/copilot/get-started/quickstart-copilot-app">GitHub Copilot app quickstart</a>
           </article>
 
+          <article class="comparison-card cli-card">
+            <h3>Use GitHub Copilot CLI when...</h3>
+            <ul>
+              <li>You prefer terminal workflows.</li>
+              <li>You want Copilot to inspect or change files and run commands from the current working directory.</li>
+              <li>You need a scriptable or keyboard-first workflow.</li>
+              <li>You are comfortable reviewing commands, file changes, and permission requests before approving them.</li>
+              <li>You want to use supported skills, plugins, and MCP connections from the command line.</li>
+            </ul>
+            <a class="button" href="https://docs.github.com/en/copilot/get-started/cli-quickstart">GitHub Copilot CLI quickstart</a>
+          </article>
+
           <article class="comparison-card microsoft-card">
-            <h3>Use Microsoft Copilot when...</h3>
+            <h3>Use Microsoft Copilot Chat or Cowork when...</h3>
             <ul>
               <li>Your work mostly happens in Microsoft 365, such as Teams, Outlook, Word, or PowerPoint.</li>
-              <li>You want quick help with everyday personal work.</li>
+              <li>You want quick Chat help or delegated, multi-step knowledge work in Cowork.</li>
               <li>You need to summarize a Teams thread, draft a reply, or turn meeting notes into actions.</li>
               <li>You want to use or create Microsoft Copilot agents; availability varies by account, license, and organization settings.</li>
               <li>Your organization uses Microsoft 365 Copilot or Copilot Studio to publish governed plugins, connectors, actions, skills, or MCP-backed tools.</li>
@@ -342,18 +362,30 @@
             <a class="button button-secondary" href="https://www.microsoft.com/en-us/copilot/download-copilot-app">Microsoft Copilot app</a>
           </article>
 
-          <article class="comparison-card either-card">
-            <h3>Either app can work when...</h3>
+          <article class="comparison-card code-card">
+            <h3>Use Microsoft Copilot Code when...</h3>
             <ul>
-              <li>You want to brainstorm, summarize, research, or draft.</li>
-              <li>You need a quick outline, table, or first draft.</li>
-              <li>You do not need a long-running repository workflow or a deeply Microsoft-first experience.</li>
-              <li>You need Microsoft 365 context but also want the work to continue in a Project; WorkIQ can bring permitted context into GitHub Copilot.</li>
+              <li>You want to describe an app, dashboard, automation, website, or script in plain language and watch it take shape in a live preview.</li>
+              <li>Your solution should use permitted Microsoft 365 work context such as documents, email, meetings, or calendar.</li>
+              <li>You want to build locally or in a secure cloud project, with optional GitHub repository and pull-request workflows.</li>
+              <li>You want to publish a small internal app or share an organization-scoped static app from a cloud project.</li>
+              <li>You have access to the Frontier preview; availability, licensing, and features may change.</li>
             </ul>
+            <a class="button button-secondary" href="https://learn.microsoft.com/en-us/copilot/code/overview">Microsoft Copilot Code preview</a>
           </article>
         </div>
 
-        <p class="source-note">The standalone Microsoft Copilot app offers agents, but it does not use the same direct end-user Customize experience as the GitHub Copilot app. Deeper Microsoft extensibility is available through Microsoft 365 Copilot and Copilot Studio, and is commonly published or governed by approved makers or administrators. Product details and availability can change; see the current <a href="https://docs.github.com/en/copilot/concepts/customizations/plugins">GitHub Copilot plugins documentation</a>, <a href="https://support.microsoft.com/en-us/microsoft-365-copilot/get-started-with-agents-in-the-microsoft-365-copilot-app">Microsoft Copilot agents guide</a>, <a href="https://learn.microsoft.com/en-us/microsoft-agent-365/admin/manage-plugins-skills-mcp-servers">Microsoft 365 plugin, skill, and MCP governance guide</a>, <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/overview-copilot-connector">Microsoft 365 Copilot connectors overview</a>, and <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-existing-server-to-agent">Copilot Studio MCP guide</a>.</p>
+        <article class="overlap-note">
+          <h3>More than one can work when...</h3>
+          <ul>
+            <li>You want to brainstorm, summarize, research, or draft.</li>
+            <li>You need a quick outline, table, or first draft.</li>
+            <li>You do not need a long-running repository workflow or a deeply Microsoft-first experience.</li>
+            <li>You need Microsoft 365 context but also want the work to continue in a Project; WorkIQ can bring permitted context into GitHub Copilot.</li>
+          </ul>
+        </article>
+
+        <p class="source-note">The standalone Microsoft Copilot app offers agents, but it does not use the same direct end-user Customize experience as the GitHub Copilot app. Deeper Microsoft extensibility is available through Microsoft 365 Copilot and Copilot Studio, and is commonly published or governed by approved makers or administrators. Copilot Code is a Frontier preview, so capabilities and availability can change. See the current <a href="https://docs.github.com/en/copilot/concepts/customizations/plugins">GitHub Copilot plugins documentation</a>, <a href="https://support.microsoft.com/en-us/microsoft-365-copilot/get-started-with-microsoft-365-copilot-chat">Microsoft 365 Copilot Chat guide</a>, <a href="https://support.microsoft.com/en-us/microsoft-365-copilot/get-started-with-cowork">Microsoft Copilot Cowork guide</a>, <a href="https://support.microsoft.com/en-us/microsoft-365-copilot/get-started-with-agents-in-the-microsoft-365-copilot-app">Microsoft Copilot agents guide</a>, <a href="https://learn.microsoft.com/en-us/copilot/code/overview">Microsoft Copilot Code overview</a>, <a href="https://learn.microsoft.com/en-us/microsoft-agent-365/admin/manage-plugins-skills-mcp-servers">Microsoft 365 plugin, skill, and MCP governance guide</a>, <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/overview-copilot-connector">Microsoft 365 Copilot connectors overview</a>, and <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-existing-server-to-agent">Copilot Studio MCP guide</a>.</p>
       </section>
     </main>
 

@@ -545,6 +545,8 @@ body:has(.tab-panel:not(#setup) :target) #setup {
 }
 
 .comparison-card {
+  display: flex;
+  flex-direction: column;
   padding: clamp(1.3rem, 3vw, 2rem);
   border-radius: var(--radius);
 }
@@ -559,10 +561,15 @@ body:has(.tab-panel:not(#setup) :target) #setup {
   border: 1px solid #d5c1e8;
 }
 
-.either-card {
-  grid-column: 1 / -1;
+.cli-card {
   background: var(--surface-subtle);
   border: 1px solid var(--line);
+}
+
+.code-card {
+  background: #fff;
+  border: 1px solid #d5c1e8;
+  box-shadow: inset 0 4px 0 var(--focus);
 }
 
 .comparison-label {
@@ -595,6 +602,11 @@ body:has(.tab-panel:not(#setup) :target) #setup {
   padding-left: 1.25rem;
 }
 
+.comparison-card .button {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
 .overlap-note,
 .notice {
   margin-top: 1rem;
@@ -604,8 +616,11 @@ body:has(.tab-panel:not(#setup) :target) #setup {
   box-shadow: inset 0 3px 0 var(--focus);
 }
 
-.overlap-note p {
-  margin: 0.45rem 0 0;
+.overlap-note ul {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.65rem 0 0;
+  padding-left: 1.25rem;
 }
 
 .direct-notes {
@@ -657,10 +672,6 @@ footer {
   .readiness,
   .comparison-grid {
     grid-template-columns: 1fr;
-  }
-
-  .either-card {
-    grid-column: auto;
   }
 
   .notes-step {
