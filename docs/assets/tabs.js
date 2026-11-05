@@ -7,7 +7,6 @@
     return;
   }
 
-  document.documentElement.classList.add("tabs-enhanced");
   tabList.setAttribute("role", "tablist");
 
   const panelIds = new Set(panels.map((panel) => panel.id));
@@ -60,6 +59,7 @@
   }
 
   revealHashTarget();
+  document.documentElement.classList.add("tabs-enhanced");
 
   tabs.forEach((tab, index) => {
     tab.addEventListener("click", (event) => {
