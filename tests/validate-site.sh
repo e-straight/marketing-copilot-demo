@@ -20,9 +20,26 @@ test -f "$tabs_script" || fail "tabs script is missing"
 test -f "$favicon" || fail "favicon is missing"
 test -f "docs/.nojekyll" || fail ".nojekyll is missing"
 
-for id in setup download sign-in add-project confirm-workiq ready speaker-notes compare-apps; do
+for id in setup download sign-in confirm-workiq ready speaker-notes compare-apps; do
   grep -q "id=\"$id\"" "$public_page" || fail "public page is missing #$id"
 done
+
+if grep -Fqi 'Add the workshop project' "$public_page" ||
+  grep -q 'id="add-project"' "$public_page" ||
+  grep -Fqi 'Start a session in the workshop project' "$public_page" ||
+  grep -Fqi 'The workshop project appears under Projects' "$public_page"; then
+  fail "Setup should not include the workshop project step or orphaned helper copy"
+fi
+grep -Fq 'You are ready when all three are true.' "$public_page" ||
+  fail "Setup readiness count should reflect the three remaining checks"
+setup_step_count="$(grep -c '<li class="setup-step"' "$public_page")"
+test "$setup_step_count" = "3" ||
+  fail "Setup should contain exactly three steps"
+setup_step_numbers="$(grep 'class="step-number"' "$public_page" |
+  sed -E 's/.*>([0-9]+)<.*/\1/' |
+  paste -sd ' ' -)"
+test "$setup_step_numbers" = "1 2 3" ||
+  fail "Setup steps should be numbered 1 through 3"
 
 tab_count="$(grep -o 'class="tab"' "$public_page" | wc -l | tr -d ' ')"
 test "$tab_count" = "3" || fail "public page should expose exactly Setup, Speaker notes, and Compare apps tabs"
@@ -200,8 +217,6 @@ test "$orientation_bullets" = "6" ||
 
 grep -q 'https://github.com/features/copilot' "$public_page" ||
   fail "setup is missing the official app download link"
-grep -q 'https://github.com/e-straight/marketing-copilot-demo' "$public_page" ||
-  fail "setup is missing the workshop repository link"
 grep -q 'https://docs.github.com/en/copilot/get-started/quickstart-copilot-app' "$public_page" ||
   fail "speaker notes are missing the official app quickstart"
 printf '%s\n' "$speaker_orientation_html" | grep -q 'https://docs.github.com/en/copilot/concepts/customizations/plugins' ||
