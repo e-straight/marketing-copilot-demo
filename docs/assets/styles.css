@@ -221,6 +221,10 @@ body:has(.tab-panel :target) #setup {
   display: none;
 }
 
+.tabs-enhanced .tab-panel:not([hidden]) {
+  display: block;
+}
+
 .setup-flow {
   margin: 0;
   padding: 0.5rem 0 0;
@@ -511,6 +515,21 @@ body:has(.tab-panel :target) #setup {
   gap: 0.35rem;
   margin: 0.3rem 0 0;
   padding-left: 1.25rem;
+}
+
+.orientation-explainer {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--surface-subtle);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.orientation-explainer h4,
+.orientation-explainer p {
+  margin: 0;
 }
 
 .source-note {

@@ -185,11 +185,24 @@
                 <li><strong>Artifacts and canvases:</strong> View or edit one specific output, such as the BRK 999 tracker.</li>
                 <li><strong>Dashboards:</strong> Scan several workstreams, sessions, or statuses in one overview instead of opening each output.</li>
               </ul>
+              <div class="orientation-explainer">
+                <h4>Repo sessions and Projects</h4>
+                <p><strong>A repo is where Copilot performs coding work; a Project is the persistent coordinator for a larger outcome.</strong></p>
+                <p><strong>Repo session example:</strong> To prepare for Microsoft Ignite, use a repo session to update one demo app, fix a bug, test it, or create a pull request. The session works in an isolated checkout of that specific repository.</p>
+                <p><strong>Project example:</strong> Use a <strong>Microsoft Ignite readiness</strong> Project to maintain the overall plan and coordinate multiple sessions, such as updating the demo app in one repo, presentation materials in another, tracking decisions, and running recurring readiness checks.</p>
+                <p>A Project does not contain or replace the repos. It retains the broader context and delegates work to repo-backed sessions, including sessions across multiple repositories.</p>
+              </div>
+              <div class="orientation-explainer">
+                <h4>Plugin, skill, or MCP server?</h4>
+                <p><strong>Plugin:</strong> An installable bundle that can package custom agents, skills, hooks, MCP configuration, and app extensions. Use one when you want a ready-made toolkit, such as a testing plugin that includes review guidance and a connection to test results.</p>
+                <p><strong>Skill:</strong> A reusable recipe of instructions, scripts, and resources for how Copilot should perform a task. Use one when you want consistent steps, such as your team's release-note process.</p>
+                <p><strong>MCP server:</strong> A live connection to an external tool or data source. Use one when Copilot needs current information or needs to take an allowed action, such as accessing permitted Microsoft 365 context through WorkIQ.</p>
+              </div>
               <h4>Handoff</h4>
               <p>“Let’s open one durable Project for the tracker.”</p>
               <h4>Fallback</h4>
               <p>If a surface is not available in a participant build, describe its role and continue from a regular session.</p>
-              <p class="source-note">Terminology reference: <a href="https://docs.github.com/en/copilot/get-started/quickstart-copilot-app">GitHub Copilot app quickstart</a>.</p>
+              <p class="source-note">Terminology references: <a href="https://docs.github.com/en/copilot/get-started/quickstart-copilot-app">GitHub Copilot app quickstart</a>, <a href="https://docs.github.com/en/copilot/concepts/customizations/plugins">plugins</a>, and <a href="https://docs.github.com/en/copilot/concepts/customizations/agent-skills">agent skills</a>.</p>
             </div>
           </li>
 
@@ -330,6 +343,7 @@
               <li>You want to keep a project, source files, sessions, and automation together.</li>
               <li>You want separate sessions or agents to handle different parts of the work.</li>
               <li>You need a custom tracker view or a task that runs again on a schedule.</li>
+              <li>You want to install or manage plugins, skills, and MCP connections directly from Customize.</li>
               <li>The work may later involve a repository, issue, pull request, or code change.</li>
             </ul>
             <a class="button" href="https://docs.github.com/en/copilot/get-started/quickstart-copilot-app">GitHub Copilot app quickstart</a>
@@ -341,6 +355,8 @@
               <li>Your work mostly happens in Microsoft 365, such as Teams, Outlook, Word, or PowerPoint.</li>
               <li>You want quick help with everyday personal work.</li>
               <li>You need to summarize a Teams thread, draft a reply, or turn meeting notes into actions.</li>
+              <li>You want to use or create Microsoft Copilot agents; availability varies by account, license, and organization settings.</li>
+              <li>Your organization uses Microsoft 365 Copilot or Copilot Studio to publish governed plugins, connectors, actions, skills, or MCP-backed tools.</li>
               <li>You do not need a repository, several work sessions, or a software workflow.</li>
             </ul>
             <a class="button button-secondary" href="https://www.microsoft.com/en-us/copilot/download-copilot-app">Microsoft Copilot app</a>
@@ -357,7 +373,7 @@
           </article>
         </div>
 
-        <p class="source-note">Product details can change. Check the current <a href="https://docs.github.com/en/copilot/get-started/quickstart-copilot-app">GitHub Copilot app quickstart</a> and <a href="https://www.microsoft.com/en-us/copilot/download-copilot-app">Microsoft Copilot app page</a>.</p>
+        <p class="source-note">The standalone Microsoft Copilot app offers agents, but it does not use the same direct end-user Customize experience as the GitHub Copilot app. Deeper Microsoft extensibility is available through Microsoft 365 Copilot and Copilot Studio, and is commonly published or governed by approved makers or administrators. Product details and availability can change; see the current <a href="https://docs.github.com/en/copilot/concepts/customizations/plugins">GitHub Copilot plugins documentation</a>, <a href="https://support.microsoft.com/en-us/microsoft-365-copilot/get-started-with-agents-in-the-microsoft-365-copilot-app">Microsoft Copilot agents guide</a>, <a href="https://learn.microsoft.com/en-us/microsoft-agent-365/admin/manage-plugins-skills-mcp-servers">Microsoft 365 plugin, skill, and MCP governance guide</a>, <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/overview-copilot-connector">Microsoft 365 Copilot connectors overview</a>, and <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-existing-server-to-agent">Copilot Studio MCP guide</a>.</p>
       </section>
     </main>
 

@@ -103,7 +103,12 @@ for phrase in \
   'Use Microsoft Copilot when...' \
   'Either app can work when...' \
   'keep a project, source files, sessions, and automation together' \
+  'install or manage plugins, skills, and MCP connections directly from Customize' \
   'work mostly happens in Microsoft 365' \
+  'use or create Microsoft Copilot agents' \
+  'availability varies by account, license, and organization settings' \
+  'Microsoft 365 Copilot or Copilot Studio' \
+  'governed plugins, connectors, actions, skills, or MCP-backed tools' \
   'brainstorm, summarize, research, or draft'; do
   grep -Fqi "$phrase" "$public_page" || fail "app comparison is missing: $phrase"
 done
@@ -114,6 +119,9 @@ test "$comparison_bullets" -ge 9 ||
   fail "app comparison should use at least nine short bullet points"
 if printf '%s\n' "$comparison_html" | grep -Fqi 'BRK 999'; then
   fail "app comparison should not reference BRK 999"
+fi
+if printf '%s\n' "$comparison_html" | grep -Eqi 'Microsoft Copilot (does not|doesn.t) support (plugins|skills|MCP)'; then
+  fail "app comparison should not make an absolute Microsoft Copilot extensibility claim"
 fi
 
 for phrase in \
@@ -130,7 +138,25 @@ for phrase in \
   grep -Fqi "$phrase" "$public_page" || fail "app orientation is missing: $phrase"
 done
 
-orientation_bullets="$(sed -n '/id="notes-orient"/,/id="notes-project"/p' "$public_page" | grep -c '<li>')"
+speaker_orientation_html="$(sed -n '/id="notes-orient"/,/id="notes-project"/p' "$public_page")"
+for phrase in \
+  'A repo is where Copilot performs coding work' \
+  'a Project is the persistent coordinator for a larger outcome' \
+  'Microsoft Ignite readiness' \
+  'isolated checkout of that specific repository' \
+  'does not contain or replace the repos' \
+  'multiple repositories' \
+  'Plugin:' \
+  'installable bundle' \
+  'Skill:' \
+  'reusable recipe' \
+  'MCP server:' \
+  'live connection to an external tool or data source'; do
+  printf '%s\n' "$speaker_orientation_html" | grep -Fqi "$phrase" ||
+    fail "app orientation explainer is missing: $phrase"
+done
+
+orientation_bullets="$(printf '%s\n' "$speaker_orientation_html" | grep -c '<li>')"
 test "$orientation_bullets" = "6" ||
   fail "app orientation should contain exactly six bullets"
 
@@ -140,8 +166,20 @@ grep -q 'https://github.com/e-straight/marketing-copilot-demo' "$public_page" ||
   fail "setup is missing the workshop repository link"
 grep -q 'https://docs.github.com/en/copilot/get-started/quickstart-copilot-app' "$public_page" ||
   fail "speaker notes are missing the official app quickstart"
+printf '%s\n' "$speaker_orientation_html" | grep -q 'https://docs.github.com/en/copilot/concepts/customizations/plugins' ||
+  fail "page is missing the official GitHub Copilot plugins documentation"
+printf '%s\n' "$speaker_orientation_html" | grep -q 'https://docs.github.com/en/copilot/concepts/customizations/agent-skills' ||
+  fail "page is missing the official GitHub Copilot skills documentation"
 grep -q 'https://www.microsoft.com/en-us/copilot/download-copilot-app' "$public_page" ||
   fail "speaker notes are missing the Microsoft Copilot app link"
+printf '%s\n' "$comparison_html" | grep -q 'https://support.microsoft.com/en-us/microsoft-365-copilot/get-started-with-agents-in-the-microsoft-365-copilot-app' ||
+  fail "page is missing the official Microsoft Copilot agents documentation"
+printf '%s\n' "$comparison_html" | grep -q 'https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-existing-server-to-agent' ||
+  fail "page is missing the official Copilot Studio MCP documentation"
+printf '%s\n' "$comparison_html" | grep -q 'https://learn.microsoft.com/en-us/microsoft-agent-365/admin/manage-plugins-skills-mcp-servers' ||
+  fail "page is missing the official Microsoft 365 extensibility governance documentation"
+printf '%s\n' "$comparison_html" | grep -q 'https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/overview-copilot-connector' ||
+  fail "page is missing the official Microsoft 365 Copilot connectors documentation"
 grep -q 'assets/styles.css' "$public_page" ||
   fail "public page does not load the shared stylesheet"
 grep -q 'assets/tabs.js' "$public_page" ||
@@ -156,6 +194,12 @@ grep -q '../assets/styles.css' "$speaker_page" ||
 
 grep -q 'document.documentElement.classList.add("tabs-enhanced")' "$tabs_script" ||
   fail "tabs do not use progressive enhancement"
+reveal_line="$(grep -n '^  revealHashTarget();' "$tabs_script" | head -1 | cut -d: -f1)"
+enhanced_line="$(grep -n 'document.documentElement.classList.add("tabs-enhanced")' "$tabs_script" | head -1 | cut -d: -f1)"
+test "$reveal_line" -lt "$enhanced_line" ||
+  fail "tabs must set hidden panel state before enabling enhanced display styles"
+grep -q '.tabs-enhanced .tab-panel:not(\[hidden\])' "$stylesheet" ||
+  fail "enhanced tabs do not show the selected non-hidden panel"
 grep -q 'ArrowRight' "$tabs_script" ||
   fail "tabs are missing keyboard navigation"
 grep -q 'closest(".tab-panel")' "$tabs_script" ||
