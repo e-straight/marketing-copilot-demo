@@ -82,15 +82,19 @@ for phrase in \
   'Use GitHub Copilot when...' \
   'Use Microsoft Copilot when...' \
   'Either app can work when...' \
-  'keep the BRK 999 tracker' \
+  'keep a project, source files, sessions, and automation together' \
   'work mostly happens in Microsoft 365' \
   'brainstorm, summarize, research, or draft'; do
   grep -Fqi "$phrase" "$public_page" || fail "app comparison is missing: $phrase"
 done
 
-comparison_bullets="$(sed -n '/id="compare-apps"/,/<\/section>/p' "$public_page" | grep -c '<li>')"
+comparison_html="$(sed -n '/id="compare-apps"/,/<\/section>/p' "$public_page")"
+comparison_bullets="$(printf '%s\n' "$comparison_html" | grep -c '<li>')"
 test "$comparison_bullets" -ge 9 ||
   fail "app comparison should use at least nine short bullet points"
+if printf '%s\n' "$comparison_html" | grep -Fqi 'BRK 999'; then
+  fail "app comparison should not reference BRK 999"
+fi
 
 for phrase in \
   'Projects:' \
