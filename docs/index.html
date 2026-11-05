@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Setup guide, speaker notes, and app comparison for the BRK 999 GitHub Copilot workshop.">
+    <title>BRK 999 workshop | GitHub Copilot</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to workshop content</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand-lockup" role="img" aria-label="Microsoft">
+          <span class="microsoft-mark" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </span>
+          <span class="microsoft-wordmark">Microsoft</span>
+        </div>
+        <p class="workshop-label">GitHub Copilot workshop · BRK 999</p>
+        <h1>Workshop guide</h1>
+      </div>
+      <div class="color-ribbon" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </header>
+
+    <nav class="tabs-shell" aria-label="Workshop views">
+      <div class="workshop-tabs" aria-label="Workshop views">
+        <a class="tab" id="tab-setup" href="#setup">Setup</a>
+        <a class="tab" id="tab-compare-apps" href="#compare-apps">Compare apps</a>
+        <a class="tab" id="tab-speaker-notes" href="#speaker-notes">Speaker notes</a>
+      </div>
+    </nav>
+
+    <main id="main-content">
+      <section class="tab-panel" id="setup">
+        <ol class="setup-flow" aria-label="Workshop setup steps">
+          <li class="setup-step" id="download">
+            <div class="step-number" aria-hidden="true">1</div>
+            <div class="step-content">
+              <h2>Download the GitHub Copilot app</h2>
+              <p>Open the official releases page and choose the installer for your computer.</p>
+              <div class="action-row">
+                <a class="button" href="https://github.com/github/app/releases">Open app downloads</a>
+              </div>
+              <div class="screen-callout">
+                <p class="screen-title">GitHub releases</p>
+                <ol class="click-path">
+                  <li>Open the newest release.</li>
+                  <li>Under <strong>Assets</strong>, choose macOS or Windows.</li>
+                  <li>Run the downloaded installer, then open the app.</li>
+                </ol>
+              </div>
+            </div>
+          </li>
+
+          <li class="setup-step" id="sign-in">
+            <div class="step-number" aria-hidden="true">2</div>
+            <div class="step-content">
+              <h2>Sign in to GitHub</h2>
+              <p>Use the GitHub account approved for this workshop.</p>
+              <div class="screen-callout">
+                <p class="screen-title">GitHub Copilot app</p>
+                <ol class="click-path">
+                  <li>Click <strong>Sign in to GitHub</strong>.</li>
+                  <li>Complete the browser sign-in and authorization.</li>
+                  <li>Return to the app when your account appears in the sidebar.</li>
+                </ol>
+              </div>
+            </div>
+          </li>
+
+          <li class="setup-step" id="add-project">
+            <div class="step-number" aria-hidden="true">3</div>
+            <div class="step-content">
+              <h2>Add the workshop project</h2>
+              <p>Add the workshop repository so your sessions have the right files and context.</p>
+              <div class="action-row">
+                <a class="button" href="https://github.com/e-straight/marketing-copilot-demo">Open workshop repository</a>
+              </div>
+              <div class="screen-callout">
+                <p class="screen-title">Projects</p>
+                <ol class="click-path">
+                  <li>Click <strong>+</strong> beside <strong>Projects</strong>.</li>
+                  <li>Choose <strong>Add GitHub repository</strong>.</li>
+                  <li>Select <strong>e-straight/marketing-copilot-demo</strong>, then click <strong>Add</strong>.</li>
+                </ol>
+              </div>
+            </div>
+          </li>
+
+          <li class="setup-step" id="confirm-workiq">
+            <div class="step-number" aria-hidden="true">4</div>
+            <div class="step-content">
+              <h2>Confirm WorkIQ access</h2>
+              <p>Start a session in the workshop project and send this access check.</p>
+              <div class="prompt-block">
+                <p>Use WorkIQ to list the titles and start times of my next three calendar events.</p>
+              </div>
+              <div class="screen-callout">
+                <p class="screen-title">If WorkIQ asks you to connect</p>
+                <ol class="click-path">
+                  <li>Click <strong>Sign in</strong> in the authorization prompt.</li>
+                  <li>Use your Microsoft work account.</li>
+                  <li>Return to the session and send the access check again.</li>
+                </ol>
+              </div>
+            </div>
+          </li>
+        </ol>
+
+        <section class="readiness" id="ready" aria-labelledby="ready-title">
+          <div>
+            <p class="section-kicker">Readiness check</p>
+            <h2 id="ready-title">You are ready when all four are true.</h2>
+          </div>
+          <ul class="ready-list">
+            <li>The GitHub Copilot app opens.</li>
+            <li>Your GitHub account appears in the app.</li>
+            <li>The workshop project appears under Projects.</li>
+            <li>WorkIQ returns your calendar results.</li>
+          </ul>
+        </section>
+      </section>
+
+      <section class="tab-panel speaker-notes-panel" id="speaker-notes">
+        <div class="panel-heading">
+          <p class="section-kicker">Elijah's presenter runbook</p>
+          <h2>Build the BRK 999 message and workflow tracker, step by step.</h2>
+          <p>Follow this sequence live. Elijah uses the BRK 999 group chat as the facilitator example; participants use their own chat.</p>
+        </div>
+
+        <ol class="notes-flow">
+          <li class="notes-step" id="notes-scenario">
+            <div class="notes-number" aria-hidden="true">1</div>
+            <div class="notes-body">
+              <p class="timing"><strong>Timing:</strong> 3 minutes</p>
+              <h3>Introduce the scenario</h3>
+              <h4>Demo actions</h4>
+              <p>Explain that BRK 999 work is scattered across Teams messages and files. Use two examples: Elijah needs to update the slide deck, and Ashley has added comments to the script document. The goal is a workflow tracker that shows the item, owner, status, location, and next action.</p>
+              <h4>Handoff</h4>
+              <p>“First, we need the app connected to the right project and work context.”</p>
+              <h4>Fallback</h4>
+              <p>If the live files are unavailable, use the slide deck and commented script examples shown here.</p>
+            </div>
+          </li>
+
+          <li class="notes-step" id="notes-install">
+            <div class="notes-number" aria-hidden="true">2</div>
+            <div class="notes-body">
+              <p class="timing"><strong>Timing:</strong> 7 minutes</p>
+              <h3>Install and sign in</h3>
+              <h4>Demo actions</h4>
+              <p>Use the Setup tab. Download the app, open it, click <strong>Sign in to GitHub</strong>, finish browser authorization, and return to the app.</p>
+              <h4>How to explain GitHub</h4>
+              <div class="github-explainer">
+                <p><strong>Use this analogy:</strong> “GitHub is like OneDrive for a project, plus permanent version history, review, and a shared task trail. It was built around code, but the useful idea is broader: the team can see what changed, why it changed, and what should happen next.”</p>
+                <ul>
+                  <li><strong>Repository:</strong> the project's shared folder and its history.</li>
+                  <li><strong>Commit:</strong> a saved checkpoint that records a set of changes.</li>
+                  <li><strong>Pull request:</strong> a proposed change people can review before it becomes official.</li>
+                </ul>
+              </div>
+              <h4>Handoff</h4>
+              <p>“Now let’s locate the few app surfaces we will use today.”</p>
+              <h4>Fallback</h4>
+              <p>If someone cannot install, pair them with a neighbor so they can still complete the workflow.</p>
+            </div>
+          </li>
+
+          <li class="notes-step" id="notes-orient">
+            <div class="notes-number" aria-hidden="true">3</div>
+            <div class="notes-body">
+              <p class="timing"><strong>Timing:</strong> 5 minutes</p>
+              <h3>Orient to the GitHub Copilot app</h3>
+              <h4>Demo actions</h4>
+              <ul class="orientation-list">
+                <li><strong>Projects:</strong> Use a Project for ongoing work that needs context to stay together across sessions. A chat is better for a quick, standalone question or draft using only that conversation's context. BRK 999 belongs in a Project because setup, source context, tracker artifact, automation, and later updates need to stay together.</li>
+                <li><strong>Sessions:</strong> Give one focused task to each session, such as gathering Teams context or checking the tracker.</li>
+                <li><strong>Customize:</strong> Find the skills and connectors used by the demo, including WorkIQ for permitted Microsoft 365 context.</li>
+                <li><strong>Automations:</strong> Save the Teams-to-tracker check so it can run on a schedule or on demand.</li>
+                <li><strong>Artifacts and canvases:</strong> View or edit one specific output, such as the BRK 999 tracker.</li>
+                <li><strong>Dashboards:</strong> Scan several workstreams, sessions, or statuses in one overview instead of opening each output.</li>
+              </ul>
+              <h4>Handoff</h4>
+              <p>“Let’s open one durable Project for the tracker.”</p>
+              <h4>Fallback</h4>
+              <p>If a surface is not available in a participant build, describe its role and continue from a regular session.</p>
+              <p class="source-note">Terminology reference: <a href="https://docs.github.com/en/copilot/get-started/quickstart-copilot-app">GitHub Copilot app quickstart</a>.</p>
+            </div>
+          </li>
+
+          <li class="notes-step" id="notes-project">
+            <div class="notes-number" aria-hidden="true">4</div>
+            <div class="notes-body">
+              <p class="timing"><strong>Timing:</strong> 3 minutes</p>
+              <h3>Add or open the demo Project</h3>
+              <h4>Demo actions</h4>
+              <p>Add <strong>e-straight/marketing-copilot-demo</strong> and open the BRK 999 Project. Explain that a Project keeps the goal, shared context, focused sessions, artifacts, and recurring work together.</p>
+              <h4>Suggested prompt</h4>
+              <p class="prompt-inline">Use this Project to build and maintain a tracker for work discussed in my Teams chat.</p>
+              <h4>Handoff</h4>
+              <p>“The Project is the home. Now we will bring in the Microsoft 365 context.”</p>
+              <h4>Fallback</h4>
+              <p>If Project creation is unavailable, start a session in the workshop repository and continue.</p>
+            </div>
+          </li>
+
+          <li class="notes-step" id="notes-context">
+            <div class="notes-number" aria-hidden="true">5</div>
+            <div class="notes-body">
+              <p class="timing"><strong>Timing:</strong> 6 minutes</p>
+              <h3>Gather Teams and document context with WorkIQ</h3>
+              <h4>Demo actions</h4>
+              <p>Elijah searches the BRK 999 group chat for recent messages about the slide deck and script. Participants repeat the step with their own chat. Open or identify the referenced files and keep source links with the extracted work.</p>
+              <h4>Suggested prompt</h4>
+              <p class="prompt-inline">Use WorkIQ to find recent messages in my BRK 999 group chat about the slide deck and speaker script. Return the work item, source link, owner, evidence-backed status, next action, and last update. Mark missing details as Needs confirmation.</p>
+              <h4>Handoff</h4>
+              <p>“We have the evidence. Next we will turn it into something easy to scan.”</p>
+              <h4>Fallback</h4>
+              <p>If WorkIQ cannot connect, use prepared workshop-safe message excerpts. Never bypass permissions or assume missing data means no work exists.</p>
+            </div>
+          </li>
+
+          <li class="notes-step" id="notes-tracker">
+            <div class="notes-number" aria-hidden="true">6</div>
+            <div class="notes-body">
+              <p class="timing"><strong>Timing:</strong> 8 minutes</p>
+              <h3>Create the workflow tracker</h3>
+              <h4>Demo actions</h4>
+              <p>In the active Project session, send the prompt below. When the <strong>BRK 999 tracker</strong> artifact card appears above the composer, click it to open the artifact surface. Check the slide deck and Ashley's commented script rows before continuing.</p>
+              <h4>Suggested prompt</h4>
+              <p class="prompt-inline">Create a Markdown artifact named BRK 999 tracker from these results. Use columns for work item, owner, status, location or source, next action, and last updated. Keep source links. Use Needs confirmation when the evidence is incomplete.</p>
+              <h4>Handoff</h4>
+              <p>“This is a useful snapshot. Now let’s make the update process repeatable.”</p>
+              <h4>Fallback</h4>
+              <p>If a native or custom canvas is unavailable, create the same tracker as a Markdown table or spreadsheet artifact.</p>
+            </div>
+          </li>
+
+          <li class="notes-step" id="notes-automate">
+            <div class="notes-number" aria-hidden="true">7</div>
+            <div class="notes-body">
+              <p class="timing"><strong>Timing:</strong> 8 minutes</p>
+              <h3>Build the Teams-to-tracker automation live</h3>
+              <h4>Demo actions</h4>
+              <ol class="demo-action-list">
+                <li>Open <strong>Automations</strong>, click <strong>Create automation</strong>, then click <strong>Create manually</strong>.</li>
+                <li>Name it <strong>BRK 999 tracker check</strong> and leave <strong>Run in the cloud</strong> off so it uses the local signed-in WorkIQ connection.</li>
+                <li>Choose the scheduled trigger and set this scheduled check to run every <strong>15 minutes</strong>.</li>
+                <li>Paste the prompt below and select the workshop repository or local folder.</li>
+                <li>Open the dropdown next to <strong>Create</strong> and click <strong>Create and run</strong>.</li>
+              </ol>
+              <h4>Suggested prompt</h4>
+              <p class="prompt-inline">Check my permitted BRK 999 Teams context for new messages about items already in the BRK 999 tracker artifact. Update owner, status, next action, source, and last updated only when the message is explicit. Put conflicts or missing details in Needs confirmation. Preserve the source link for every change.</p>
+              <h4>Handoff</h4>
+              <p>“Let’s test this with one message we already understand.”</p>
+              <h4>Fallback</h4>
+              <p>If automation creation is unavailable, save and run the same instruction on demand. The workflow still works; only the trigger changes.</p>
+            </div>
+          </li>
+
+          <li class="notes-step" id="notes-verify">
+            <div class="notes-number" aria-hidden="true">8</div>
+            <div class="notes-body">
+              <p class="timing"><strong>Timing:</strong> 4 minutes</p>
+              <h3>Verify the tracker update</h3>
+              <h4>Demo actions</h4>
+              <ol class="demo-action-list">
+                <li>On the <strong>Automations</strong> page, wait for the BRK 999 tracker check run to finish and open its run result.</li>
+                <li>Return to the BRK 999 Project and open the <strong>BRK 999 tracker</strong> artifact card.</li>
+                <li>Compare the changed row with the linked Teams source. Confirm the owner, status, next action, and timestamp are accurate.</li>
+                <li>To test again without waiting 15 minutes, return to Automations and click the <strong>play button</strong> on the automation card.</li>
+              </ol>
+              <h4>Suggested prompt</h4>
+              <p class="prompt-inline">Show me the source evidence for each proposed tracker change before applying it.</p>
+              <h4>Handoff</h4>
+              <p>“We connected messages, an artifact, review, and a repeatable workflow.”</p>
+              <h4>Fallback</h4>
+              <p>If no new message is available, use an existing known message and demonstrate the comparison without writing a duplicate update.</p>
+            </div>
+          </li>
+
+          <li class="notes-step" id="notes-compare">
+            <div class="notes-number" aria-hidden="true">9</div>
+            <div class="notes-body">
+              <p class="timing"><strong>Timing:</strong> 3 minutes</p>
+              <h3>Explain which Copilot app fits</h3>
+              <h4>Demo actions</h4>
+              <p>Open the <strong>Compare apps</strong> tab. Position the choice as best fit, not a hard product boundary.</p>
+              <h4>Handoff</h4>
+              <p>“Choose the surface that matches where the work lives and how much orchestration it needs.”</p>
+              <h4>Fallback</h4>
+              <p>For licensing or availability questions, point to current official product pages rather than improvising.</p>
+            </div>
+          </li>
+
+          <li class="notes-step" id="notes-close">
+            <div class="notes-number" aria-hidden="true">10</div>
+            <div class="notes-body">
+              <p class="timing"><strong>Timing:</strong> 2 minutes</p>
+              <h3>Close with participant next steps</h3>
+              <h4>Demo actions</h4>
+              <p>Ask participants to finish their tracker, test one update, and identify one recurring work signal they could automate safely.</p>
+              <h4>Suggested prompt</h4>
+              <p class="prompt-inline">Review my tracker for missing sources, unclear status, or next actions that need confirmation. Suggest one narrow, review-first automation I could test next.</p>
+              <h4>Handoff</h4>
+              <p>Move to Q&amp;A.</p>
+              <h4>Fallback</h4>
+              <p>If time is short, skip the prompt and restate the three outcomes: visible work, traceable sources, and reviewed automation.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="tab-panel compare-panel" id="compare-apps">
+        <div class="panel-heading">
+          <p class="section-kicker">Quick guide</p>
+          <h2>Which app should I use?</h2>
+          <p>Start with where the work is and what you need to do next.</p>
+        </div>
+
+        <div class="comparison-grid">
+          <article class="comparison-card github-card">
+            <h3>Use GitHub Copilot when...</h3>
+            <ul>
+              <li>You want to keep a project, source files, sessions, and automation together.</li>
+              <li>You want separate sessions or agents to handle different parts of the work.</li>
+              <li>You need a custom tracker view or a task that runs again on a schedule.</li>
+              <li>The work may later involve a repository, issue, pull request, or code change.</li>
+            </ul>
+            <a class="button" href="https://docs.github.com/en/copilot/get-started/quickstart-copilot-app">GitHub Copilot app quickstart</a>
+          </article>
+
+          <article class="comparison-card microsoft-card">
+            <h3>Use Microsoft Copilot when...</h3>
+            <ul>
+              <li>Your work mostly happens in Microsoft 365, such as Teams, Outlook, Word, or PowerPoint.</li>
+              <li>You want quick help with everyday personal work.</li>
+              <li>You need to summarize a Teams thread, draft a reply, or turn meeting notes into actions.</li>
+              <li>You do not need a repository, several work sessions, or a software workflow.</li>
+            </ul>
+            <a class="button button-secondary" href="https://www.microsoft.com/en-us/copilot/download-copilot-app">Microsoft Copilot app</a>
+          </article>
+
+          <article class="comparison-card either-card">
+            <h3>Either app can work when...</h3>
+            <ul>
+              <li>You want to brainstorm, summarize, research, or draft.</li>
+              <li>You need a quick outline, table, or first draft.</li>
+              <li>You do not need a long-running repository workflow or a deeply Microsoft-first experience.</li>
+              <li>You need Microsoft 365 context but also want the work to continue in a Project; WorkIQ can bring permitted context into GitHub Copilot.</li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="source-note">Product details can change. Check the current <a href="https://docs.github.com/en/copilot/get-started/quickstart-copilot-app">GitHub Copilot app quickstart</a> and <a href="https://www.microsoft.com/en-us/copilot/download-copilot-app">Microsoft Copilot app page</a>.</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>GitHub Copilot workshop · BRK 999</p>
+    </footer>
+    <script src="assets/tabs.js"></script>
+  </body>
+</html>
