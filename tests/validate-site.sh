@@ -198,7 +198,7 @@ orientation_bullets="$(printf '%s\n' "$speaker_orientation_html" | grep -c '<li>
 test "$orientation_bullets" = "6" ||
   fail "app orientation should contain exactly six bullets"
 
-grep -q 'https://github.com/github/app/releases' "$public_page" ||
+grep -q 'https://github.com/features/copilot' "$public_page" ||
   fail "setup is missing the official app download link"
 grep -q 'https://github.com/e-straight/marketing-copilot-demo' "$public_page" ||
   fail "setup is missing the workshop repository link"
