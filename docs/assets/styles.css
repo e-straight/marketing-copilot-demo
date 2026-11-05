@@ -212,11 +212,12 @@ main {
   display: block;
 }
 
-body:has(.tab-panel:target) #setup,
-body:has(.tab-panel :target) #setup {
+body:has(.tab-panel:not(#setup):target) #setup,
+body:has(.tab-panel:not(#setup) :target) #setup {
   display: none;
 }
 
+.tabs-enhanced #setup[hidden],
 .tabs-enhanced .tab-panel[hidden] {
   display: none;
 }
