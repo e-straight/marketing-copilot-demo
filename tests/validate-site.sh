@@ -59,7 +59,6 @@ for phrase in \
   'Timing' \
   'Demo actions' \
   'Suggested prompt' \
-  'Expected result' \
   'Handoff' \
   'Fallback' \
   'BRK 999 group chat' \
@@ -77,6 +76,16 @@ for phrase in \
   'Microsoft Copilot app'; do
   grep -Fqi "$phrase" "$public_page" || fail "speaker notes are missing: $phrase"
 done
+
+if grep -Fqi 'Expected result' "$public_page"; then
+  fail "speaker notes should not include Expected result blocks"
+fi
+if grep -Eqi 'prompt-inline\">[[:space:]]*No prompt' "$public_page"; then
+  fail "speaker notes should not include no-prompt placeholders"
+fi
+prompt_count="$(grep -c '<h4>Suggested prompt</h4>' "$public_page")"
+test "$prompt_count" = "6" ||
+  fail "speaker notes should retain exactly six concrete Suggested prompt blocks"
 
 for phrase in \
   'Use GitHub Copilot when...' \
