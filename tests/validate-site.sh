@@ -154,24 +154,69 @@ for phrase in \
 done
 
 for phrase in \
-  'Use GitHub Copilot when...' \
-  'Use Microsoft Copilot when...' \
-  'Either app can work when...' \
+  'Which Copilot experience should I use?' \
+  'Use GitHub Copilot app when...' \
+  'Use GitHub Copilot CLI when...' \
+  'Use Microsoft Copilot Chat or Cowork when...' \
+  'Use Microsoft Copilot Code when...' \
+  'More than one can work when...' \
   'keep a project, source files, sessions, and automation together' \
   'install or manage plugins, skills, and MCP connections directly from Customize' \
+  'prefer terminal workflows' \
+  'current working directory' \
+  'scriptable or keyboard-first workflow' \
+  'reviewing commands, file changes, and permission requests' \
+  'supported skills, plugins, and MCP connections from the command line' \
   'work mostly happens in Microsoft 365' \
   'use or create Microsoft Copilot agents' \
   'availability varies by account, license, and organization settings' \
   'Microsoft 365 Copilot or Copilot Studio' \
   'governed plugins, connectors, actions, skills, or MCP-backed tools' \
+  'app, dashboard, automation, website, or script in plain language' \
+  'live preview' \
+  'optional GitHub repository and pull-request workflows' \
+  'publish a small internal app' \
+  'Frontier preview; availability, licensing, and features may change' \
   'brainstorm, summarize, research, or draft'; do
   grep -Fqi "$phrase" "$public_page" || fail "app comparison is missing: $phrase"
 done
 
 comparison_html="$(sed -n '/id="compare-apps"/,/<\/section>/p' "$public_page")"
+comparison_card_count="$(printf '%s\n' "$comparison_html" | grep -c '<article class="comparison-card')"
+test "$comparison_card_count" = "4" ||
+  fail "comparison should contain exactly four product experience cards"
 comparison_bullets="$(printf '%s\n' "$comparison_html" | grep -c '<li>')"
-test "$comparison_bullets" -ge 9 ||
-  fail "app comparison should use at least nine short bullet points"
+test "$comparison_bullets" -ge 20 ||
+  fail "comparison should use at least twenty short bullet points"
+
+github_app_card="$(printf '%s\n' "$comparison_html" | sed -n '/class="comparison-card github-card"/,/<\/article>/p')"
+github_cli_card="$(printf '%s\n' "$comparison_html" | sed -n '/class="comparison-card cli-card"/,/<\/article>/p')"
+microsoft_card="$(printf '%s\n' "$comparison_html" | sed -n '/class="comparison-card microsoft-card"/,/<\/article>/p')"
+code_card="$(printf '%s\n' "$comparison_html" | sed -n '/class="comparison-card code-card"/,/<\/article>/p')"
+for card in "$github_app_card" "$github_cli_card" "$microsoft_card" "$code_card"; do
+  printf '%s\n' "$card" | grep -q '<h3>' ||
+    fail "each comparison card should use a semantic heading"
+  printf '%s\n' "$card" | grep -q '<ul>' ||
+    fail "each comparison card should present guidance as a list"
+done
+printf '%s\n' "$github_app_card" | grep -Fq 'Use GitHub Copilot app when...' ||
+  fail "GitHub Copilot app guidance is outside its card"
+printf '%s\n' "$github_cli_card" | grep -Fq 'Use GitHub Copilot CLI when...' ||
+  fail "GitHub Copilot CLI guidance is outside its card"
+printf '%s\n' "$microsoft_card" | grep -Fq 'Use Microsoft Copilot Chat or Cowork when...' ||
+  fail "Microsoft Copilot Chat and Cowork guidance is outside its card"
+printf '%s\n' "$code_card" | grep -Fq 'Use Microsoft Copilot Code when...' ||
+  fail "Microsoft Copilot Code guidance is outside its card"
+printf '%s\n' "$code_card" | grep -Fq 'share an organization-scoped static app from a cloud project' ||
+  fail "Copilot Code static-app sharing should retain the cloud-only qualification"
+
+comparison_grid_html="$(printf '%s\n' "$comparison_html" | sed -n '/<div class="comparison-grid">/,/<\/div>/p')"
+if printf '%s\n' "$comparison_grid_html" | grep -q 'class="overlap-note"'; then
+  fail "overlap guidance should remain separate from the four product cards"
+fi
+printf '%s\n' "$comparison_html" | grep -q '<article class="overlap-note">' ||
+  fail "comparison is missing separate overlap guidance"
+
 if printf '%s\n' "$comparison_html" | grep -Fqi 'BRK 999'; then
   fail "app comparison should not reference BRK 999"
 fi
@@ -206,7 +251,16 @@ for phrase in \
   'Skill:' \
   'reusable recipe' \
   'MCP server:' \
-  'live connection to an external tool or data source'; do
+  'live connection to an external tool or data source' \
+  'Model selection' \
+  'Start with Copilot Fusion when it is available' \
+  'Standard for everyday work' \
+  'High for challenging work' \
+  'Max for the most demanding tasks' \
+  'If the picker shows Auto instead, use Auto for general work' \
+  'Efficiency, Balance, and Intelligence' \
+  'Choose a specific model' \
+  'surface, plan, rollout, and organization model policies'; do
   printf '%s\n' "$speaker_orientation_html" | grep -Fqi "$phrase" ||
     fail "app orientation explainer is missing: $phrase"
 done
@@ -233,6 +287,18 @@ printf '%s\n' "$comparison_html" | grep -q 'https://learn.microsoft.com/en-us/mi
   fail "page is missing the official Microsoft 365 extensibility governance documentation"
 printf '%s\n' "$comparison_html" | grep -q 'https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/overview-copilot-connector' ||
   fail "page is missing the official Microsoft 365 Copilot connectors documentation"
+printf '%s\n' "$comparison_html" | grep -q 'https://docs.github.com/en/copilot/get-started/cli-quickstart' ||
+  fail "comparison is missing the official GitHub Copilot CLI quickstart"
+printf '%s\n' "$comparison_html" | grep -q 'https://learn.microsoft.com/en-us/copilot/code/overview' ||
+  fail "comparison is missing the official Microsoft Copilot Code overview"
+printf '%s\n' "$comparison_html" | grep -q 'https://support.microsoft.com/en-us/microsoft-365-copilot/get-started-with-microsoft-365-copilot-chat' ||
+  fail "comparison is missing official Microsoft 365 Copilot Chat documentation"
+printf '%s\n' "$comparison_html" | grep -q 'https://support.microsoft.com/en-us/microsoft-365-copilot/get-started-with-cowork' ||
+  fail "comparison is missing official Microsoft Copilot Cowork documentation"
+printf '%s\n' "$speaker_orientation_html" | grep -q 'https://docs.github.com/en/copilot/concepts/models/auto-model-selection' ||
+  fail "model selection notes are missing the official Auto documentation"
+printf '%s\n' "$speaker_orientation_html" | grep -q 'https://docs.github.com/en/copilot/concepts/models/copilot-fusion' ||
+  fail "model selection notes are missing the official Copilot Fusion documentation"
 grep -q 'assets/styles.css' "$public_page" ||
   fail "public page does not load the shared stylesheet"
 grep -q 'assets/tabs.js' "$public_page" ||
@@ -276,6 +342,16 @@ grep -q '.workshop-tabs' "$stylesheet" ||
   fail "stylesheet is missing tab navigation"
 grep -q '.notes-step' "$stylesheet" ||
   fail "stylesheet is missing speaker-note step styling"
+grep -q '.cli-card' "$stylesheet" ||
+  fail "stylesheet is missing GitHub Copilot CLI card styling"
+grep -q '.code-card' "$stylesheet" ||
+  fail "stylesheet is missing Microsoft Copilot Code card styling"
+comparison_grid_css="$(sed -n '/^\.comparison-grid {/,/^}/p' "$stylesheet")"
+printf '%s\n' "$comparison_grid_css" | grep -q 'grid-template-columns: repeat(2, minmax(0, 1fr));' ||
+  fail "comparison cards should use two columns on desktop and tablet"
+mobile_css="$(sed -n '/^@media (max-width: 760px)/,$p' "$stylesheet")"
+printf '%s\n' "$mobile_css" | sed -n '/\.comparison-grid/,/}/p' | grep -q 'grid-template-columns: 1fr;' ||
+  fail "comparison cards should use one column on mobile"
 grep -q 'font-size: clamp(2.6rem, 8vw, 5.6rem)' "$stylesheet" ||
   fail "original setup hero typography was not preserved"
 grep -q 'padding: 3rem 0' "$stylesheet" ||
