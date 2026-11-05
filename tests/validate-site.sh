@@ -69,7 +69,7 @@ for phrase in \
   'scheduled check' \
   'Create manually' \
   'BRK 999 tracker check' \
-  '15 minutes' \
+  '10 minutes' \
   'Create and run' \
   'play button' \
   'GitHub Copilot app' \
@@ -88,6 +88,8 @@ test "$prompt_count" = "6" ||
   fail "speaker notes should retain exactly six concrete Suggested prompt blocks"
 grep -Fq 'Create a canvas named BRK 999 tracker from these results. Use columns for work item, owner, status, location or source, next action, and last updated. Keep source links. Use Needs confirmation when the evidence is incomplete. Use the impeccable design plugin to make this happen and keep it as simple as possible.' "$public_page" ||
   fail "tracker Suggested prompt does not use the requested canvas and impeccable plugin wording"
+grep -Fq 'Check my permitted BRK 999 Teams context for new messages about items already in the BRK 999 tracker artifact. Update owner, status, next action, source, and last updated only when the message is explicit. Put conflicts or missing details in Needs confirmation. Preserve the source link for every change.' "$public_page" ||
+  fail "automation Suggested prompt does not match the requested wording"
 
 for phrase in \
   'GitHub is like OneDrive for a project' \
