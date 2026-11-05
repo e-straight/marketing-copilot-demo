@@ -365,6 +365,25 @@ body:has(.tab-panel :target) #setup {
   padding: 0.8rem 1rem;
 }
 
+.github-explainer {
+  margin-top: 0.3rem;
+  padding: 1rem;
+  background: var(--surface-subtle);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.github-explainer p {
+  margin: 0;
+}
+
+.github-explainer ul {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+}
+
 .readiness {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);

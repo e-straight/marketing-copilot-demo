@@ -88,6 +88,17 @@ test "$prompt_count" = "6" ||
   fail "speaker notes should retain exactly six concrete Suggested prompt blocks"
 
 for phrase in \
+  'GitHub is like OneDrive for a project' \
+  'permanent version history' \
+  'shared task trail' \
+  'what changed, why it changed, and what should happen next' \
+  'Repository:' \
+  'Commit:' \
+  'Pull request:'; do
+  grep -Fqi "$phrase" "$public_page" || fail "GitHub explainer is missing: $phrase"
+done
+
+for phrase in \
   'Use GitHub Copilot when...' \
   'Use Microsoft Copilot when...' \
   'Either app can work when...' \
