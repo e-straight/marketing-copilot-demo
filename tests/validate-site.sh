@@ -200,6 +200,10 @@ test "$reveal_line" -lt "$enhanced_line" ||
   fail "tabs must set hidden panel state before enabling enhanced display styles"
 grep -q '.tabs-enhanced .tab-panel:not(\[hidden\])' "$stylesheet" ||
   fail "enhanced tabs do not show the selected non-hidden panel"
+grep -q '.tabs-enhanced #setup\[hidden\]' "$stylesheet" ||
+  fail "enhanced tabs do not override the default Setup panel when it is hidden"
+grep -q 'body:has(.tab-panel:not(#setup):target) #setup' "$stylesheet" ||
+  fail "the default Setup panel must not hide itself when #setup is targeted"
 grep -q 'ArrowRight' "$tabs_script" ||
   fail "tabs are missing keyboard navigation"
 grep -q 'closest(".tab-panel")' "$tabs_script" ||
