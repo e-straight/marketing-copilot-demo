@@ -43,16 +43,46 @@ fi
 
 for id in \
   notes-scenario \
+  notes-tracker \
   notes-install \
   notes-orient \
   notes-project \
   notes-context \
-  notes-tracker \
   notes-automate \
   notes-verify \
   notes-compare \
   notes-close; do
   grep -q "id=\"$id\"" "$public_page" || fail "speaker notes are missing #$id"
+done
+
+notes_step_count="$(grep -c '<li class="notes-step"' "$public_page")"
+test "$notes_step_count" = "10" ||
+  fail "speaker notes should contain exactly ten steps"
+actual_notes_sequence="$(grep '<li class="notes-step"' "$public_page" |
+  sed -E 's/.*id="([^"]+)".*/\1/' |
+  paste -sd ' ' -)"
+expected_notes_sequence='notes-scenario notes-tracker notes-install notes-orient notes-project notes-context notes-automate notes-verify notes-compare notes-close'
+test "$actual_notes_sequence" = "$expected_notes_sequence" ||
+  fail "speaker notes steps are missing, duplicated, or out of order"
+
+for step in \
+  'notes-scenario:1' \
+  'notes-tracker:2' \
+  'notes-install:3' \
+  'notes-orient:4' \
+  'notes-project:5' \
+  'notes-context:6' \
+  'notes-automate:7' \
+  'notes-verify:8' \
+  'notes-compare:9' \
+  'notes-close:10'; do
+  step_id="${step%%:*}"
+  expected_number="${step##*:}"
+  actual_number="$(sed -n "/id=\"$step_id\"/,/<\\/li>/p" "$public_page" |
+    grep -m1 'class="notes-number"' |
+    sed -E 's/.*>([0-9]+)<.*/\1/')"
+  test "$actual_number" = "$expected_number" ||
+    fail "#$step_id should be numbered step $expected_number"
 done
 
 for phrase in \
@@ -72,6 +102,10 @@ for phrase in \
   '10 minutes' \
   'Create and run' \
   'play button' \
+  'focused session' \
+  'continue speaking instead of waiting' \
+  'Project context already contains the permitted source results' \
+  'validate and enrich the running tracker' \
   'GitHub Copilot app' \
   'Microsoft Copilot app'; do
   grep -Fqi "$phrase" "$public_page" || fail "speaker notes are missing: $phrase"
