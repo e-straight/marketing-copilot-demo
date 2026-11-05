@@ -79,12 +79,36 @@ for phrase in \
 done
 
 for phrase in \
-  'durable project context' \
-  'everyday personal productivity' \
-  'may be interchangeable' \
-  'permitted Microsoft 365 context'; do
+  'Use GitHub Copilot when...' \
+  'Use Microsoft Copilot when...' \
+  'Either app can work when...' \
+  'keep the BRK 999 tracker' \
+  'work mostly happens in Microsoft 365' \
+  'brainstorm, summarize, research, or draft'; do
   grep -Fqi "$phrase" "$public_page" || fail "app comparison is missing: $phrase"
 done
+
+comparison_bullets="$(sed -n '/id="compare-apps"/,/<\/section>/p' "$public_page" | grep -c '<li>')"
+test "$comparison_bullets" -ge 9 ||
+  fail "app comparison should use at least nine short bullet points"
+
+for phrase in \
+  'Projects:' \
+  'Sessions:' \
+  'Customize:' \
+  'Automations:' \
+  'Artifacts and canvases:' \
+  'Dashboards:' \
+  'view or edit one specific output' \
+  'scan several workstreams, sessions, or statuses' \
+  'quick, standalone question or draft' \
+  'setup, source context, tracker artifact, automation, and later updates'; do
+  grep -Fqi "$phrase" "$public_page" || fail "app orientation is missing: $phrase"
+done
+
+orientation_bullets="$(sed -n '/id="notes-orient"/,/id="notes-project"/p' "$public_page" | grep -c '<li>')"
+test "$orientation_bullets" = "6" ||
+  fail "app orientation should contain exactly six bullets"
 
 grep -q 'https://github.com/github/app/releases' "$public_page" ||
   fail "setup is missing the official app download link"

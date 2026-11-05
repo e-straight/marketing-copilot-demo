@@ -176,7 +176,14 @@
               <p class="timing"><strong>Timing:</strong> 5 minutes</p>
               <h3>Orient to the GitHub Copilot app</h3>
               <h4>Demo actions</h4>
-              <p>Point out <strong>Projects</strong>, <strong>Sessions</strong>, <strong>Customize</strong>, <strong>Automations</strong>, and artifact or canvas surfaces. Explain only their role in this demo: Projects keep durable context, focused sessions do one task, Customize holds skills and connectors such as WorkIQ, canvases show editable output, and automations repeat a saved task.</p>
+              <ul class="orientation-list">
+                <li><strong>Projects:</strong> Use a Project for ongoing work that needs context to stay together across sessions. A chat is better for a quick, standalone question or draft using only that conversation's context. BRK 999 belongs in a Project because setup, source context, tracker artifact, automation, and later updates need to stay together.</li>
+                <li><strong>Sessions:</strong> Give one focused task to each session, such as gathering Teams context or checking the tracker.</li>
+                <li><strong>Customize:</strong> Find the skills and connectors used by the demo, including WorkIQ for permitted Microsoft 365 context.</li>
+                <li><strong>Automations:</strong> Save the Teams-to-tracker check so it can run on a schedule or on demand.</li>
+                <li><strong>Artifacts and canvases:</strong> View or edit one specific output, such as the BRK 999 tracker.</li>
+                <li><strong>Dashboards:</strong> Scan several workstreams, sessions, or statuses in one overview instead of opening each output.</li>
+              </ul>
               <h4>Suggested prompt</h4>
               <p class="prompt-inline">No prompt. Keep this orientation under five minutes.</p>
               <h4>Expected result</h4>
@@ -330,40 +337,44 @@
 
       <section class="tab-panel compare-panel" id="compare-apps">
         <div class="panel-heading">
-          <p class="section-kicker">Practical decision guide</p>
-          <h2>Choose the app that matches the shape of the work.</h2>
-          <p>The products overlap. Start with the primary context and whether the work needs durable orchestration.</p>
+          <p class="section-kicker">Quick guide</p>
+          <h2>Which app should I use?</h2>
+          <p>Start with where the work is and what you need to do next.</p>
         </div>
 
         <div class="comparison-grid">
           <article class="comparison-card github-card">
-            <p class="comparison-label">Choose GitHub Copilot app when</p>
-            <h3>The work benefits from durable project context.</h3>
+            <h3>Use GitHub Copilot when...</h3>
             <ul>
-              <li>Repositories, ongoing Projects, or software delivery workflows matter.</li>
-              <li>You need isolated or parallel sessions and agent delegation.</li>
-              <li>Custom canvases, artifacts, or automations are part of the workflow.</li>
-              <li>You want the work to continue across tasks, sessions, or time.</li>
+              <li>You want to keep the BRK 999 tracker, source files, sessions, and automation together.</li>
+              <li>You want separate sessions or agents to handle different parts of the work.</li>
+              <li>You need a custom tracker view or a task that runs again on a schedule.</li>
+              <li>The work may later involve a repository, issue, pull request, or code change.</li>
             </ul>
             <a class="button" href="https://docs.github.com/en/copilot/get-started/quickstart-copilot-app">GitHub Copilot app quickstart</a>
           </article>
 
           <article class="comparison-card microsoft-card">
-            <p class="comparison-label">Choose Microsoft Copilot app when</p>
-            <h3>The work is everyday personal productivity.</h3>
+            <h3>Use Microsoft Copilot when...</h3>
             <ul>
-              <li>The experience is primarily Microsoft-first and lives in Microsoft 365.</li>
-              <li>You want a direct surface for day-to-day drafting, research, and personal tasks.</li>
-              <li>Repository orchestration and software delivery are not central.</li>
+              <li>Your work mostly happens in Microsoft 365, such as Teams, Outlook, Word, or PowerPoint.</li>
+              <li>You want quick help with everyday personal work.</li>
+              <li>You need to summarize a Teams thread, draft a reply, or turn meeting notes into actions.</li>
+              <li>You do not need a repository, several work sessions, or a software workflow.</li>
             </ul>
             <a class="button button-secondary" href="https://www.microsoft.com/en-us/copilot/download-copilot-app">Microsoft Copilot app</a>
           </article>
-        </div>
 
-        <aside class="overlap-note">
-          <h3>Where they overlap</h3>
-          <p>Both can help with brainstorming, drafting, summarization, research, and lightweight artifact creation. They may be interchangeable when neither repository orchestration nor a deep Microsoft-first experience is decisive. In this workshop, WorkIQ and connectors bring permitted Microsoft 365 context into the GitHub Copilot app so the work can continue as a durable tracker and automation.</p>
-        </aside>
+          <article class="comparison-card either-card">
+            <h3>Either app can work when...</h3>
+            <ul>
+              <li>You want to brainstorm, summarize, research, or draft.</li>
+              <li>You need a quick outline, table, or first draft.</li>
+              <li>You do not need a long-running repository workflow or a deeply Microsoft-first experience.</li>
+              <li>For BRK 999, GitHub Copilot is useful because WorkIQ brings permitted Microsoft 365 context into the tracker Project.</li>
+            </ul>
+          </article>
+        </div>
 
         <p class="source-note">Product details can change. Check the current <a href="https://docs.github.com/en/copilot/get-started/quickstart-copilot-app">GitHub Copilot app quickstart</a> and <a href="https://www.microsoft.com/en-us/copilot/download-copilot-app">Microsoft Copilot app page</a>.</p>
       </section>

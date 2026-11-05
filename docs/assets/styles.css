@@ -486,7 +486,8 @@ body:has(.tab-panel :target) #setup {
   margin: 0.2rem 0 0;
 }
 
-.demo-action-list {
+.demo-action-list,
+.orientation-list {
   display: grid;
   gap: 0.35rem;
   margin: 0.3rem 0 0;
@@ -517,6 +518,12 @@ body:has(.tab-panel :target) #setup {
 .microsoft-card {
   background: var(--purple-100);
   border: 1px solid #d5c1e8;
+}
+
+.either-card {
+  grid-column: 1 / -1;
+  background: var(--surface-subtle);
+  border: 1px solid var(--line);
 }
 
 .comparison-label {
@@ -611,6 +618,10 @@ footer {
   .readiness,
   .comparison-grid {
     grid-template-columns: 1fr;
+  }
+
+  .either-card {
+    grid-column: auto;
   }
 
   .notes-step {
