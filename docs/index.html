@@ -134,13 +134,30 @@
               <p class="timing"><strong>Timing:</strong> 3 minutes</p>
               <h3>Start the workflow tracker in the background</h3>
               <h4>Demo actions</h4>
-              <p>Elijah opens the prepared BRK 999 Project and starts a focused session. Confirm the Project context already contains the permitted source results, send the prompt below, and leave the session running in the background. Continue speaking instead of waiting for the canvas to finish. Participants watch this facilitator step and will use their own permitted context after setup.</p>
+              <p>Elijah opens the prepared BRK 999 Project and starts a focused session. Send the prompt below and leave the session running in the background. Continue speaking instead of waiting for the canvas to finish. Participants watch this facilitator step and will use their own permitted context after setup.</p>
               <h4>Suggested prompt</h4>
-              <p class="prompt-inline">Create a canvas named BRK 999 tracker from these results. Use columns for work item, owner, status, location or source, next action, and last updated. Keep source links. Use Needs confirmation when the evidence is incomplete. Use the impeccable design plugin to make this happen and keep it as simple as possible.</p>
+              <div class="prompt-inline">
+                <p>Create a <strong>user-scoped Copilot canvas extension</strong> named <strong>BRK 999 2.0</strong>.</p>
+                <p>Use these columns only: <strong>Work item, Owner, Status, Next action, Last updated</strong>. Do not include location, source, summary, framework, or decisions fields.</p>
+                <p><strong>Requirements:</strong></p>
+                <ul>
+                  <li>Add editable controls for every field.</li>
+                  <li>Support statuses: Not started, In progress, Blocked, Done, Needs confirmation.</li>
+                  <li>Include <strong>Add work item</strong>, remove-row controls, autosave, and an explicit <strong>Save changes</strong> button.</li>
+                  <li>Make Next action an auto-growing multiline textarea that never clips text or creates giant rows.</li>
+                  <li>Keep desktop rows compact and provide a responsive card layout for narrow screens.</li>
+                  <li>Store all tracker data in one shared user-level JSON file so owners and edits remain consistent across chats, reloads, and new canvas instances.</li>
+                  <li>Use atomic file writes and validate malformed input.</li>
+                  <li>Seed these owners: Elijah for GitHub Pages, BRK 999 script, and Workshop canvas; Ashley for Workshop artifacts and Teams research.</li>
+                  <li>Prevent stale iframe issues by reloading the extension and reopening the active canvas instance after changes.</li>
+                  <li>Add focused Bun tests for persistence, migration, server endpoints, registration, responsive sizing, save behavior, and injection protection.</li>
+                  <li>Reload the extension and verify live that all owners appear, rows remain compact, Next action text is not clipped, and no console errors occur.</li>
+                </ul>
+              </div>
               <h4>Handoff</h4>
               <p>“The tracker is building in a focused session while we get everyone set up and explain how the pieces fit together.”</p>
               <h4>Fallback</h4>
-              <p>If the prepared Project or source results are unavailable, keep moving and start the tracker after the WorkIQ context step using the same prompt.</p>
+              <p>If the live extension build is unavailable, open a prepared BRK 999 2.0 tracker and continue the walkthrough.</p>
             </div>
           </li>
 
