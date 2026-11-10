@@ -287,7 +287,22 @@ for phrase in \
   'Skill:' \
   'reusable recipe' \
   'MCP server:' \
-  'live connection to an external tool or data source' \
+  'live connection to an external tool or data source'; do
+  printf '%s\n' "$speaker_orientation_html" | grep -Fqi "$phrase" ||
+    fail "app orientation explainer is missing: $phrase"
+done
+
+for heading in 'AI credits' 'Model selection and switching'; do
+  heading_count="$(grep -Foc "<h4>$heading</h4>" "$public_page")"
+  test "$heading_count" = "1" ||
+    fail "$heading should occur exactly once"
+  if printf '%s\n' "$speaker_orientation_html" | grep -Fq "$heading"; then
+    fail "$heading should not remain in App orientation"
+  fi
+done
+
+speaker_final_reference_html="$(sed -n '/id="speaker-final-reference"/,/<\/section>/p' "$public_page")"
+for phrase in \
   'AI credits' \
   'Credits work like a phone data plan' \
   'more powerful models generally use more' \
@@ -309,15 +324,31 @@ for phrase in \
   'Efficiency, Balance, and Intelligence' \
   'Choose a specific model' \
   'surface, plan, rollout, and organization model policies'; do
-  printf '%s\n' "$speaker_orientation_html" | grep -Fqi "$phrase" ||
-    fail "app orientation explainer is missing: $phrase"
+  printf '%s\n' "$speaker_final_reference_html" | grep -Fqi "$phrase" ||
+    fail "final speaker reference is missing: $phrase"
+  if printf '%s\n' "$speaker_orientation_html" | grep -Fqi "$phrase"; then
+    fail "moved final-reference content should not remain in App orientation: $phrase"
+  fi
 done
 
-printf '%s\n' "$speaker_orientation_html" | grep -Fq 'https://msit.powerbi.com/groups/me/apps/8be2db21-d297-485b-a01b-6a03fbf6fbd1/reports/6ddd79d1-b24c-42dc-bf9a-b4877eba032d/personalv2phase1page?ctid=72f988bf-86f1-41af-91ab-2d7cd011db47&amp;experience=power-bi' ||
+printf '%s\n' "$speaker_final_reference_html" | grep -Fq 'https://msit.powerbi.com/groups/me/apps/8be2db21-d297-485b-a01b-6a03fbf6fbd1/reports/6ddd79d1-b24c-42dc-bf9a-b4877eba032d/personalv2phase1page?ctid=72f988bf-86f1-41af-91ab-2d7cd011db47&amp;experience=power-bi' ||
   fail "AI credits guidance is missing the exact Personal Usage V2 link"
 if grep -Eqi 'pooled|pooling|roll[ -]?over|monthly|resets? on the (1st|first)|pool resets' "$public_page"; then
   fail "speaker notes should not mention pooled or monthly credit behavior"
 fi
+
+notes_close_line="$(grep -n 'id="notes-close"' "$public_page" | head -1 | cut -d: -f1)"
+notes_flow_close_line="$(grep -n '</ol>' "$public_page" |
+  awk -F: -v start="$notes_close_line" '$1 > start { print $1; exit }')"
+final_reference_line="$(grep -n 'id="speaker-final-reference"' "$public_page" | head -1 | cut -d: -f1)"
+speaker_panel_close_line="$(grep -n '<section class="tab-panel compare-panel"' "$public_page" |
+  head -1 |
+  cut -d: -f1)"
+test -n "$final_reference_line" &&
+  test "$notes_close_line" -lt "$notes_flow_close_line" &&
+  test "$notes_flow_close_line" -lt "$final_reference_line" &&
+  test "$final_reference_line" -lt "$speaker_panel_close_line" ||
+  fail "final speaker reference should appear after notes-close"
 
 orientation_bullets="$(printf '%s\n' "$speaker_orientation_html" | grep -c '<li>')"
 test "$orientation_bullets" = "6" ||
@@ -349,10 +380,13 @@ printf '%s\n' "$comparison_html" | grep -q 'https://support.microsoft.com/en-us/
   fail "comparison is missing official Microsoft 365 Copilot Chat documentation"
 printf '%s\n' "$comparison_html" | grep -q 'https://support.microsoft.com/en-us/microsoft-365-copilot/get-started-with-cowork' ||
   fail "comparison is missing official Microsoft Copilot Cowork documentation"
-printf '%s\n' "$speaker_orientation_html" | grep -q 'https://docs.github.com/en/copilot/concepts/models/auto-model-selection' ||
+printf '%s\n' "$speaker_final_reference_html" | grep -q 'https://docs.github.com/en/copilot/concepts/models/auto-model-selection' ||
   fail "model selection notes are missing the official Auto documentation"
-printf '%s\n' "$speaker_orientation_html" | grep -q 'https://docs.github.com/en/copilot/concepts/models/copilot-fusion' ||
+printf '%s\n' "$speaker_final_reference_html" | grep -q 'https://docs.github.com/en/copilot/concepts/models/copilot-fusion' ||
   fail "model selection notes are missing the official Copilot Fusion documentation"
+if printf '%s\n' "$speaker_orientation_html" | grep -Eq 'auto-model-selection|copilot-fusion'; then
+  fail "model source links should not remain in App orientation"
+fi
 grep -q 'assets/styles.css' "$public_page" ||
   fail "public page does not load the shared stylesheet"
 grep -q 'assets/tabs.js' "$public_page" ||
