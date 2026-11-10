@@ -252,11 +252,23 @@ for phrase in \
   'reusable recipe' \
   'MCP server:' \
   'live connection to an external tool or data source' \
+  'AI credits' \
+  'Credits work like a phone data plan' \
+  'more powerful models generally use more' \
+  'Credit usage varies by model and task complexity' \
+  'Simple requests typically use fewer credits than complex tasks' \
+  'Personal Usage V2' \
   'Model selection' \
+  'Click the model name below the prompt box' \
+  'switch models at any point during a session' \
   'Start with Copilot Fusion when it is available' \
   'Standard for everyday work' \
   'High for challenging work' \
   'Max for the most demanding tasks' \
+  'Each model is billed at its normal rate' \
+  'Paid plans currently receive a limited-time 30% discount on model costs with Fusion' \
+  'Start with Fusion Standard' \
+  'switch back to Standard' \
   'If the picker shows Auto instead, use Auto for general work' \
   'Efficiency, Balance, and Intelligence' \
   'Choose a specific model' \
@@ -264,6 +276,12 @@ for phrase in \
   printf '%s\n' "$speaker_orientation_html" | grep -Fqi "$phrase" ||
     fail "app orientation explainer is missing: $phrase"
 done
+
+printf '%s\n' "$speaker_orientation_html" | grep -Fq 'https://msit.powerbi.com/groups/me/apps/8be2db21-d297-485b-a01b-6a03fbf6fbd1/reports/6ddd79d1-b24c-42dc-bf9a-b4877eba032d/personalv2phase1page?ctid=72f988bf-86f1-41af-91ab-2d7cd011db47&amp;experience=power-bi' ||
+  fail "AI credits guidance is missing the exact Personal Usage V2 link"
+if grep -Eqi 'pooled|pooling|roll[ -]?over|monthly|resets? on the (1st|first)|pool resets' "$public_page"; then
+  fail "speaker notes should not mention pooled or monthly credit behavior"
+fi
 
 orientation_bullets="$(printf '%s\n' "$speaker_orientation_html" | grep -c '<li>')"
 test "$orientation_bullets" = "6" ||
