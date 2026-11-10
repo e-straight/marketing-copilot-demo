@@ -119,7 +119,6 @@ for phrase in \
   'play button' \
   'focused session' \
   'continue speaking instead of waiting' \
-  'Project context already contains the permitted source results' \
   'GitHub Copilot app' \
   'Microsoft Copilot app'; do
   grep -Fqi "$phrase" "$public_page" || fail "speaker notes are missing: $phrase"
@@ -134,10 +133,46 @@ fi
 prompt_count="$(grep -c '<h4>Suggested prompt</h4>' "$public_page")"
 test "$prompt_count" = "5" ||
   fail "speaker notes should retain exactly five concrete Suggested prompt blocks"
-grep -Fq 'Create a canvas named BRK 999 tracker from these results. Use columns for work item, owner, status, location or source, next action, and last updated. Keep source links. Use Needs confirmation when the evidence is incomplete. Use the impeccable design plugin to make this happen and keep it as simple as possible.' "$public_page" ||
-  fail "tracker Suggested prompt does not use the requested canvas and impeccable plugin wording"
+tracker_prompt_html="$(sed -n '/id="notes-tracker"/,/id="notes-install"/p' "$public_page")"
+tracker_prompt_text="$(printf '%s\n' "$tracker_prompt_html" |
+  sed -E 's/<[^>]+>/ /g; s/&gt;/>/g; s/&amp;/\&/g; s/[[:space:]]+/ /g; s/ ([.,;:])/\1/g')"
+tracker_requirement_count="$(printf '%s\n' "$tracker_prompt_html" | grep -c '<li>')"
+test "$tracker_requirement_count" = "11" ||
+  fail "tracker Suggested prompt should contain exactly eleven requirement bullets"
+for phrase in \
+  'Create a user-scoped Copilot canvas extension named BRK 999 2.0.' \
+  'Work item, Owner, Status, Next action, Last updated' \
+  'Do not include location, source, summary, framework, or decisions fields.' \
+  'Add editable controls for every field.' \
+  'Not started, In progress, Blocked, Done, Needs confirmation.' \
+  'Add work item' \
+  'remove-row controls' \
+  'autosave' \
+  'Save changes' \
+  'auto-growing multiline textarea that never clips text or creates giant rows' \
+  'responsive card layout for narrow screens' \
+  'one shared user-level JSON file' \
+  'atomic file writes and validate malformed input' \
+  'Elijah for GitHub Pages, BRK 999 script, and Workshop canvas' \
+  'Ashley for Workshop artifacts and Teams research' \
+  'reloading the extension and reopening the active canvas instance after changes' \
+  'focused Bun tests for persistence, migration, server endpoints, registration, responsive sizing, save behavior, and injection protection' \
+  'verify live that all owners appear, rows remain compact, Next action text is not clipped, and no console errors occur'; do
+  printf '%s\n' "$tracker_prompt_text" | grep -Fq "$phrase" ||
+    fail "tracker Suggested prompt is missing: $phrase"
+done
 grep -Fq 'Hey can you set up an automation that runs every 10 mins and checks BRK 999 Demo teams thread and then update the BRK999 tracker?' "$public_page" ||
   fail "automation Suggested prompt does not match the requested wording"
+if grep -Fq 'Create a canvas named BRK 999 tracker from these results.' "$public_page"; then
+  fail "speaker notes should not include the old one-line tracker prompt"
+fi
+if grep -Fq 'BRK 1999' "$public_page"; then
+  fail "speaker notes should not reference BRK 1999"
+fi
+if grep -Fq 'Project context already contains the permitted source results' "$public_page" ||
+  grep -Fq 'after the WorkIQ context step' "$public_page"; then
+  fail "step 2 should not rely on stale source-context or WorkIQ-step language"
+fi
 if grep -Fq 'Gather context and refine the tracker' "$public_page" ||
   grep -Fq 'Use WorkIQ to find recent messages in my BRK 999 group chat about the slide deck and speaker script.' "$public_page"; then
   fail "speaker notes should not include the removed context-refinement step"
