@@ -64,7 +64,6 @@ for id in \
   notes-install \
   notes-orient \
   notes-project \
-  notes-context \
   notes-automate \
   notes-verify \
   notes-compare \
@@ -73,12 +72,12 @@ for id in \
 done
 
 notes_step_count="$(grep -c '<li class="notes-step"' "$public_page")"
-test "$notes_step_count" = "10" ||
-  fail "speaker notes should contain exactly ten steps"
+test "$notes_step_count" = "9" ||
+  fail "speaker notes should contain exactly nine steps"
 actual_notes_sequence="$(grep '<li class="notes-step"' "$public_page" |
   sed -E 's/.*id="([^"]+)".*/\1/' |
   paste -sd ' ' -)"
-expected_notes_sequence='notes-scenario notes-tracker notes-install notes-orient notes-project notes-context notes-automate notes-verify notes-compare notes-close'
+expected_notes_sequence='notes-scenario notes-tracker notes-install notes-orient notes-project notes-automate notes-verify notes-compare notes-close'
 test "$actual_notes_sequence" = "$expected_notes_sequence" ||
   fail "speaker notes steps are missing, duplicated, or out of order"
 
@@ -88,11 +87,10 @@ for step in \
   'notes-install:3' \
   'notes-orient:4' \
   'notes-project:5' \
-  'notes-context:6' \
-  'notes-automate:7' \
-  'notes-verify:8' \
-  'notes-compare:9' \
-  'notes-close:10'; do
+  'notes-automate:6' \
+  'notes-verify:7' \
+  'notes-compare:8' \
+  'notes-close:9'; do
   step_id="${step%%:*}"
   expected_number="${step##*:}"
   actual_number="$(sed -n "/id=\"$step_id\"/,/<\\/li>/p" "$public_page" |
@@ -122,7 +120,6 @@ for phrase in \
   'focused session' \
   'continue speaking instead of waiting' \
   'Project context already contains the permitted source results' \
-  'validate and enrich the running tracker' \
   'GitHub Copilot app' \
   'Microsoft Copilot app'; do
   grep -Fqi "$phrase" "$public_page" || fail "speaker notes are missing: $phrase"
@@ -135,12 +132,16 @@ if grep -Eqi 'prompt-inline\">[[:space:]]*No prompt' "$public_page"; then
   fail "speaker notes should not include no-prompt placeholders"
 fi
 prompt_count="$(grep -c '<h4>Suggested prompt</h4>' "$public_page")"
-test "$prompt_count" = "6" ||
-  fail "speaker notes should retain exactly six concrete Suggested prompt blocks"
+test "$prompt_count" = "5" ||
+  fail "speaker notes should retain exactly five concrete Suggested prompt blocks"
 grep -Fq 'Create a canvas named BRK 999 tracker from these results. Use columns for work item, owner, status, location or source, next action, and last updated. Keep source links. Use Needs confirmation when the evidence is incomplete. Use the impeccable design plugin to make this happen and keep it as simple as possible.' "$public_page" ||
   fail "tracker Suggested prompt does not use the requested canvas and impeccable plugin wording"
 grep -Fq 'Hey can you set up an automation that runs every 10 mins and checks BRK 999 Demo teams thread and then update the BRK999 tracker?' "$public_page" ||
   fail "automation Suggested prompt does not match the requested wording"
+if grep -Fq 'Gather context and refine the tracker' "$public_page" ||
+  grep -Fq 'Use WorkIQ to find recent messages in my BRK 999 group chat about the slide deck and speaker script.' "$public_page"; then
+  fail "speaker notes should not include the removed context-refinement step"
+fi
 
 for phrase in \
   'GitHub is like OneDrive for a project' \
